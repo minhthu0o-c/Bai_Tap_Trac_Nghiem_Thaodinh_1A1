@@ -297,8 +297,8 @@
 </div>
 
 <script>
-    // ⚠️ QUAN TRỌNG: Dán đường link Web App URL của Google Sheets vào đây (nằm giữa 2 dấu nháy đơn):
-    const scriptURL = 'DÁN_LINK_APP_SCRIPT_VÀO_ĐÂY'; 
+    // ✅ URL nhận điểm Google Sheets của bạn
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxRA-yjp6i3c1FkUygNdWfGifXgLOV6UAPp3fB4MjjTZCvKLakwUcSJTrrrCWDpSgcD/exec'; 
 
     const quizData = [
         {
@@ -555,7 +555,6 @@
             return; 
         }
 
-        // Tạm thời làm mờ nút để chống bấm nhiều lần
         const btn = document.getElementById('submitBtn');
         btn.innerText = "Đang chấm bài và gửi điểm...";
         btn.classList.add('loading');
@@ -609,18 +608,20 @@
         formData.append("score", score + "/" + quizData.length);
         formData.append("attempts", attempts);
 
-        if (scriptURL !== 'https://script.google.com/macros/s/AKfycbxRA-yjp6i3c1FkUygNdWfGifXgLOV6UAPp3fB4MjjTZCvKLakwUcSJTrrrCWDpSgcD/exec') {
-            // Đã thêm mode: 'no-cors' để không bị trình duyệt chặn
-            fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' })
-                .then(response => {
-                    console.log('Đã gửi điểm thành công lên Google Sheets!');
-                })
-                .catch(error => {
-                    console.error('Lỗi khi gửi điểm!', error.message);
-                });
-        }
+        // ✅ Gửi fetch với no-cors và xử lý giao diện ngay lập tức
+        fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' })
+            .then(response => {
+                console.log('Đã gửi điểm thành công lên Google Sheets!');
+                hienThiKetQua(studentName, studentClass, score, attempts, btn);
+            })
+            .catch(error => {
+                console.error('Lỗi khi gửi điểm!', error.message);
+                hienThiKetQua(studentName, studentClass, score, attempts, btn); // Vẫn hiện kết quả nếu lỡ rớt mạng
+            });
+    }
 
-        // --- HIỂN THỊ KẾT QUẢ ---
+    // Tách phần hiển thị kết quả ra thành hàm riêng để chạy sau khi fetch xong
+    function hienThiKetQua(studentName, studentClass, score, attempts, btn) {
         const resultBox = document.getElementById('result-box');
         resultBox.style.display = 'block';
         resultBox.innerHTML = `
