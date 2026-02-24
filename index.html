@@ -38,6 +38,65 @@
             margin-bottom: 30px;
         }
 
+        .student-info-card {
+            background-color: #e8f5e9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border: 1px solid #c8e6c9;
+        }
+
+        .student-info-card h3 {
+            margin-top: 0;
+            color: #2e7d32;
+            margin-bottom: 15px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+            box-sizing: border-box; 
+        }
+
+        #result-box {
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #fff3cd; 
+            border: 2px solid #ffeeba;
+            border-radius: 8px;
+            font-size: 1.1em;
+            color: #856404;
+        }
+
+        #result-box h2 {
+            margin-top: 0;
+            text-align: center;
+            color: #d39e00;
+        }
+
+        .result-stat {
+            font-size: 1.2em;
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+            border-left: 4px solid var(--primary-color);
+        }
+
         .question-card {
             margin-bottom: 30px;
             padding-bottom: 20px;
@@ -75,7 +134,6 @@
             box-sizing: border-box;
         }
 
-        /* Styles for multiple choice */
         .options-list {
             list-style-type: none;
             padding: 0;
@@ -106,7 +164,6 @@
             cursor: pointer;
         }
 
-        /* Styles for Arrange Letters Question */
         .arrange-container {
             margin-top: 10px;
         }
@@ -161,7 +218,6 @@
             display: none;
         }
 
-        /* Result Classes */
         .correct-answer {
             background-color: #d4edda !important;
             border-color: #c3e6cb !important;
@@ -175,47 +231,75 @@
             color: #721c24;
         }
 
-        .submit-btn {
+        .btn {
             display: block;
             width: 100%;
             padding: 15px;
             font-size: 1.1em;
             font-weight: bold;
             color: white;
-            background-color: var(--primary-color);
             border: none;
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s;
             margin-top: 20px;
+            text-align: center;
+        }
+
+        .submit-btn {
+            background-color: var(--primary-color);
         }
 
         .submit-btn:hover {
             background-color: #45a049;
         }
 
-        #result-box {
-            display: none;
-            text-align: center;
-            margin-top: 30px;
-            padding: 20px;
-            background-color: #e2e3e5;
-            border-radius: 5px;
-            font-size: 1.2em;
-            font-weight: bold;
+        .reset-btn {
+            background-color: #2196F3;
+            display: none; 
         }
+
+        .reset-btn:hover {
+            background-color: #1976D2;
+        }
+        
+        /* Hiệu ứng mờ khi đang gửi điểm */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
     </style>
 </head>
 <body>
 
 <div class="container">
     <h1>Ôn Tập Kiến Thức</h1>
+
+    <div class="student-info-card">
+        <h3>📝 Thông tin học sinh</h3>
+        <div class="input-group">
+            <label for="studentName">Họ và tên của em:</label>
+            <input type="text" id="studentName" placeholder="Ví dụ: Nguyễn Văn A" required>
+        </div>
+        <div class="input-group">
+            <label for="studentClass">Lớp:</label>
+            <input type="text" id="studentClass" placeholder="Ví dụ: 1A1" required>
+        </div>
+    </div>
+
     <div id="quiz-container"></div>
-    <button class="submit-btn" onclick="submitQuiz()">Nộp Bài & Chấm Điểm</button>
+    
+    <button id="submitBtn" class="btn submit-btn" onclick="submitQuiz()">Nộp Bài & Chấm Điểm</button>
+    <button id="resetBtn" class="btn reset-btn" onclick="resetQuiz()">🔄 Làm Lại Bài (Đảo Câu Hỏi)</button>
+    
     <div id="result-box"></div>
 </div>
 
 <script>
+    // ⚠️ QUAN TRỌNG: Dán đường link Web App URL của Google Sheets vào đây (nằm giữa 2 dấu nháy đơn):
+    const scriptURL = 'DÁN_LINK_APP_SCRIPT_VÀO_ĐÂY'; 
+
     const quizData = [
         {
             id: 1, type: "multiple",
@@ -303,11 +387,11 @@
                 "C. Tam giác: 7, Hình vuông: 3, Hình tròn: 5", 
                 "D. Tam giác: 5, Hình vuông: 7, Hình tròn: 3"
             ],
-            answer: 0 // Đáp án A là đúng (Tam giác: 5, Vuông: 3, Tròn: 7)
+            answer: 0 
         },
         {
             id: 11, type: "multiple",
-            imageText: "[Ảnh ô chữ chứa các chữ cái]",
+            imageText: "<img src='image/cau11.jpg' alt='Ảnh các loài hoa' style='max-width: 100%; height: auto;'>",
             text: "Ô chữ trên có .... từ chỉ loài hoa.",
             options: ["A. 1", "B. 2", "C. 3", "D. 4"],
             answer: 2 
@@ -324,8 +408,8 @@
             answer: 2
         },
         {
-            id: 14, type: "multiple",
-            imageText: "<img src='image/cau14.jpg' alt='Ảnh 4 bạn học sinh: Khánh, Dũng, Mai, Chi' style='max-width: 100%; height: auto;'>",
+            id: 13, type: "multiple",
+            imageText: "<img src='image/cau14.jpg' alt='Ảnh 4 bạn học sinh' style='max-width: 100%; height: auto;'>",
             text: "Sắp xếp tên các bạn sau theo đúng thứ tự chữ cái trong bảng chữ cái.",
             options: [
                 "A. Khánh; Dũng; Mai; Chi",
@@ -335,7 +419,7 @@
             answer: 2
         },
         {
-            id: 15, type: "multiple",
+            id: 14, type: "multiple",
             text: "Sắp xếp các tiếng sau để tạo thành câu hoàn chỉnh.<br>lăng/ chùm / nở/ biếc./ tím / bằng / Những",
             options: [
                 "A. Những chùm bằng lăng tím biếc nở.", 
@@ -345,8 +429,8 @@
             answer: 1
         },
         {
-            id: 16, type: "multiple",
-            imageText: "<img src='image/cau16.jpg' alt='Ảnh người mẹ đang quạt cho em bé ngủ trên võng' style='max-width: 100%; height: auto;'>",
+            id: 15, type: "multiple",
+            imageText: "<img src='image/cau16.jpg' alt='Ảnh người mẹ đang quạt' style='max-width: 100%; height: auto;'>",
             text: "Hình ảnh sau có thể minh hoạ cho đoạn thơ nào dưới đây?",
             options: [
                 "A. Những cánh đồng bình yên<br>Nằm phơi mình ở giữa<br>Những con sông xanh, hồng<br>Uốn quanh trăm dải lụa.",
@@ -356,8 +440,8 @@
             answer: 2
         },
         {
-            id: 18, type: "multiple",
-            imageText: "<img src='image/cau18.jpg' alt='Ảnh bé gái ăn dưa hấu và nghĩ về người trồng cây' style='max-width: 100%; height: auto;'>",
+            id: 16, type: "multiple",
+            imageText: "<img src='image/cau18.jpg' alt='Ảnh bé gái ăn dưa hấu' style='max-width: 100%; height: auto;'>",
             text: "Hình ảnh sau thích hợp mô tả câu tục ngữ nào?",
             options: [
                 "A. Uống nước nhớ nguồn.",
@@ -368,14 +452,14 @@
             answer: 1
         },
         {
-            id: 25, type: "multiple",
-            imageText: "<img src='image/cau25.jpg' alt='Ảnh 1: Bó hoa | Ảnh 2: Bắp ngô | Ảnh 3: Rau cải' style='max-width: 100%; height: auto;'>",
+            id: 17, type: "multiple",
+            imageText: "<img src='image/cau25.jpg' alt='Ghép vần' style='max-width: 100%; height: auto;'>",
             text: "Hãy ghép hình ảnh với vần tương ứng:",
             options: ["A. 1b 2c 3a", "B. 1c 2b 3a", "C. 1a 2c 3b"],
             answer: 2
         },
         {
-            id: 28, type: "arrange",
+            id: 18, type: "arrange",
             text: "Sắp xếp các chữ sau để tạo thành từ chỉ nghề nghiệp. (Nhấn vào các chữ cái bên dưới để ghép)",
             letters: ['i', 'P', 'h', 'c', 'g', 'ô', 'n'],
             correctAnswer: "Phicông",
@@ -385,7 +469,6 @@
 
     const quizContainer = document.getElementById('quiz-container');
 
-    // Hàm di chuyển chữ cái qua lại giữa khay và ô đáp án
     function moveLetter(element, targetId, originId) {
         const parentId = element.parentElement.id;
         if (parentId === originId) {
@@ -395,19 +478,27 @@
         }
     }
 
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
     function loadQuiz() {
+        quizContainer.innerHTML = '';
+        
         quizData.forEach((q, index) => {
             const questionElement = document.createElement('div');
             questionElement.className = 'question-card';
             
-            let htmlContent = `<div class="question-title">Câu ${q.id}: ${q.text}</div>`;
+            let htmlContent = `<div class="question-title">Câu ${index + 1}: ${q.text}</div>`;
             
             if (q.imageText) {
                 htmlContent += `<div class="image-placeholder">${q.imageText}</div>`; 
             }
 
             if (q.type === "multiple") {
-                // Render dạng trắc nghiệm
                 htmlContent += `<ul class="options-list">`;
                 q.options.forEach((opt, optIndex) => {
                     htmlContent += `
@@ -421,13 +512,15 @@
                 });
                 htmlContent += `</ul>`;
             } else if (q.type === "arrange") {
-                // Render dạng sắp xếp chữ cái
                 htmlContent += `
                     <div class="arrange-container" id="arrange-container-${index}">
                         <div style="font-size: 0.9em; color: #666;">Khay chữ cái:</div>
                         <div class="letters-pool" id="pool-q${index}">
                 `;
-                q.letters.forEach((letter, lIndex) => {
+                let shuffledLetters = [...q.letters];
+                shuffleArray(shuffledLetters);
+                
+                shuffledLetters.forEach((letter) => {
                     htmlContent += `<span class="letter-tile" onclick="moveLetter(this, 'answer-q${index}', 'pool-q${index}')">${letter}</span>`;
                 });
                 htmlContent += `
@@ -442,9 +535,31 @@
             questionElement.innerHTML = htmlContent;
             quizContainer.appendChild(questionElement);
         });
+
+        document.getElementById('result-box').style.display = 'none';
+        document.getElementById('resetBtn').style.display = 'none';
+        document.getElementById('submitBtn').style.display = 'block';
     }
 
     function submitQuiz() {
+        const studentNameInput = document.getElementById('studentName');
+        const studentClassInput = document.getElementById('studentClass');
+        const studentName = studentNameInput.value.trim();
+        const studentClass = studentClassInput.value.trim();
+
+        if (studentName === "" || studentClass === "") {
+            alert("Em vui lòng điền đầy đủ Họ và tên và Lớp trước khi nộp bài nhé!");
+            if(studentName === "") studentNameInput.focus();
+            else studentClassInput.focus();
+            document.querySelector('.student-info-card').scrollIntoView({ behavior: 'smooth' });
+            return; 
+        }
+
+        // Tạm thời làm mờ nút để chống bấm nhiều lần
+        const btn = document.getElementById('submitBtn');
+        btn.innerText = "Đang chấm bài và gửi điểm...";
+        btn.classList.add('loading');
+
         let score = 0;
         
         quizData.forEach((q, index) => {
@@ -467,7 +582,6 @@
                     document.getElementById(`label-q${index}-o${q.answer}`).classList.add('correct-answer');
                 }
             } else if (q.type === "arrange") {
-                // Chấm điểm cho dạng sắp xếp
                 const answerBox = document.getElementById(`answer-q${index}`);
                 const userWord = Array.from(answerBox.children).map(span => span.innerText).join('');
                 
@@ -483,10 +597,54 @@
             }
         });
 
+        const storageKey = `quiz_attempts_${studentName.replace(/\s+/g, '')}_${studentClass.replace(/\s+/g, '')}`;
+        let attempts = parseInt(localStorage.getItem(storageKey)) || 0;
+        attempts += 1;
+        localStorage.setItem(storageKey, attempts);
+
+        // --- GỬI DỮ LIỆU LÊN GOOGLE SHEETS ---
+        let formData = new FormData();
+        formData.append("name", studentName);
+        formData.append("studentClass", studentClass);
+        formData.append("score", score + "/" + quizData.length);
+        formData.append("attempts", attempts);
+
+        if (scriptURL !== 'https://script.google.com/macros/s/AKfycbxRA-yjp6i3c1FkUygNdWfGifXgLOV6UAPp3fB4MjjTZCvKLakwUcSJTrrrCWDpSgcD/exec') {
+            fetch(scriptURL, { method: 'POST', body: formData })
+                .then(response => {
+                    console.log('Đã gửi điểm thành công lên Google Sheets!');
+                })
+                .catch(error => {
+                    console.error('Lỗi khi gửi điểm!', error.message);
+                });
+        }
+
+        // --- HIỂN THỊ KẾT QUẢ ---
         const resultBox = document.getElementById('result-box');
         resultBox.style.display = 'block';
-        resultBox.innerHTML = `Bạn đã làm đúng ${score} / ${quizData.length} câu.`;
+        resultBox.innerHTML = `
+            <h2>Hoàn Thành Bài Tập!</h2>
+            <div class="result-stat">👤 <strong>Họ và tên:</strong> ${studentName}</div>
+            <div class="result-stat">🏫 <strong>Lớp:</strong> ${studentClass}</div>
+            <div class="result-stat">🎯 <strong>Số câu đúng:</strong> ${score} / ${quizData.length} câu</div>
+            <div class="result-stat">🔄 <strong>Số lần nộp bài:</strong> ${attempts} lần</div>
+            <p style="text-align: center; margin-top: 20px; font-size: 0.9em;">
+                <em>(Các câu sai đã được bôi đỏ và hiển thị đáp án đúng màu xanh ở phía trên)</em>
+            </p>
+        `;
+        
+        btn.innerText = "Nộp Bài & Chấm Điểm";
+        btn.classList.remove('loading');
+        document.getElementById('submitBtn').style.display = 'none';
+        document.getElementById('resetBtn').style.display = 'block';
+
         resultBox.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function resetQuiz() {
+        shuffleArray(quizData);
+        loadQuiz();
+        document.querySelector('.student-info-card').scrollIntoView({ behavior: 'smooth' });
     }
 
     window.onload = loadQuiz;
