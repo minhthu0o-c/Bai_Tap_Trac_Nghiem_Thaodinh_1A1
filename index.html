@@ -572,7 +572,40 @@
         },
         {
             id: 10, type: "multiple",
-            imageText: "<img src='image/cau10.jpg' alt='Ảnh Toán tư duy' style='max-width: 100%; height: auto;'>",
+            // Hình ảnh được vẽ trực tiếp bằng code SVG (Không cần file ảnh rời)
+            imageText: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 280" width="100%" style="background-color: #204e30; border-radius: 15px; border: 4px solid #8D6E63; max-width: 400px; margin: 0 auto; display: block; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">
+                <style>
+                    .op { font-family: 'Nunito', sans-serif; font-size: 32px; fill: white; font-weight: bold; text-anchor: middle; dominant-baseline: middle; }
+                    .res { font-family: 'Nunito', sans-serif; font-size: 32px; fill: white; font-weight: bold; dominant-baseline: middle; }
+                    .shape { stroke-width: 5; fill: rgba(255,255,255,0.05); }
+                    .circle { stroke: #ff8a80; }
+                    .square { stroke: #82b1ff; }
+                    .triangle { stroke: #b9f6ca; }
+                </style>
+                <circle cx="80" cy="50" r="22" class="shape circle"/>
+                <text x="140" y="55" class="op">+</text>
+                <circle cx="200" cy="50" r="22" class="shape circle"/>
+                <text x="250" y="55" class="op">=</text>
+                <text x="280" y="55" class="res">14</text>
+                
+                <circle cx="80" cy="115" r="22" class="shape circle"/>
+                <text x="140" y="120" class="op">+</text>
+                <rect x="178" y="93" width="44" height="44" rx="6" class="shape square"/>
+                <text x="250" y="120" class="op">=</text>
+                <text x="280" y="120" class="res">10</text>
+                
+                <rect x="58" y="158" width="44" height="44" rx="6" class="shape square"/>
+                <text x="140" y="185" class="op">+</text>
+                <polygon points="200,155 174,203 226,203" stroke-linejoin="round" class="shape triangle"/>
+                <text x="250" y="185" class="op">=</text>
+                <text x="280" y="185" class="res">8</text>
+                
+                <polygon points="80,220 54,268 106,268" stroke-linejoin="round" class="shape triangle"/>
+                <text x="140" y="250" class="op">+</text>
+                <circle cx="200" cy="245" r="22" class="shape circle"/>
+                <text x="250" y="250" class="op">=</text>
+                <text x="280" y="250" class="res">12</text>
+            </svg>`,
             text: "Dựa vào các phép tính trên, hình tam giác, hình vuông và hình tròn có giá trị là bao nhiêu?",
             options: [
                 "A. Tam giác: 5, Hình vuông: 3, Hình tròn: 7", 
@@ -580,7 +613,7 @@
                 "C. Tam giác: 7, Hình vuông: 3, Hình tròn: 5", 
                 "D. Tam giác: 5, Hình vuông: 7, Hình tròn: 3"
             ],
-            answer: 0 
+            answer: 0 // Đáp án A là đúng
         },
         {
             id: 11, type: "multiple",
@@ -800,7 +833,7 @@
         formData.append("score", score + "/" + quizData.length);
         formData.append("attempts", attempts);
 
-        if (scriptURL.includes('DÁN_LINK')) {
+        if (scriptURL.includes('https://script.google.com/macros/s/AKfycbxRA-yjp6i3c1FkUygNdWfGifXgLOV6UAPp3fB4MjjTZCvKLakwUcSJTrrrCWDpSgcD/exec')) {
              console.warn('Chưa dán link Google Sheets, không thể gửi điểm.');
              hienThiKetQua(studentName, studentClass, score, attempts, btn);
         } else {
