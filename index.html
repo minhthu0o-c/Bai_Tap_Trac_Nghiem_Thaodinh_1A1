@@ -3,420 +3,483 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Khu Vườn Tri Thức Hiện Đại</title>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <title>Khu Vườn Tri Thức Lớp 1</title>
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Bảng màu Vườn hoa Hiện đại (Tulip & Hướng dương) */
-            --sunflower-yellow: #F59E0B; 
-            --sunflower-orange: #D97706; 
-            --tulip-pink: #EC4899; 
-            --tulip-red: #BE185D; 
+            /* Bảng màu Bầu trời & Vườn hoa */
+            --sky-top: #4FC3F7; /* Xanh da trời sáng */
+            --sky-bottom: #81D4FA;
+            --grass-light: #AED581; /* Xanh lá mạ */
+            --grass-dark: #7CB342; /* Xanh cỏ đậm */
+            --soil-brown: #8D6E63; /* Màu đất/gỗ */
             
-            --leaf-sage: #84CC16; 
-            --leaf-deep: #3F6212; 
+            --flower-yellow: #FFEB3B;
+            --flower-orange: #FF9800;
+            --flower-pink: #F06292;
+            --flower-blue: #4DD0E1;
             
-            --bg-cream: #FFFBEB; 
-            --text-dark: #1F2937; 
-            --text-muted: #6B7280;
-            
-            --font-heading: 'Poppins', sans-serif;
+            --text-dark: #33691E; /* Màu chữ xanh rêu đậm cho dễ đọc trên nền sáng */
+            --text-brown: #5D4037;
+
+            --font-heading: 'Patrick Hand', cursive;
             --font-body: 'Nunito', sans-serif;
 
-            --radius-md: 16px;
-            --radius-lg: 24px;
-            --shadow-soft: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
-            --shadow-hover: 0 20px 35px -5px rgba(0, 0, 0, 0.15);
+            --radius-organic: 20px 30px 20px 30px; /* Bo góc kiểu tự nhiên */
+            --shadow-pop: 0 8px 0px rgba(0,0,0,0.15);
         }
 
         body {
             font-family: var(--font-body);
-            background-color: var(--bg-cream);
-            background-image: 
-                radial-gradient(circle at 15% 20%, rgba(245, 158, 11, 0.08) 0%, transparent 25%), 
-                radial-gradient(circle at 85% 80%, rgba(236, 72, 153, 0.08) 0%, transparent 25%); 
+            /* Nền gradient từ bầu trời xuống thảm cỏ */
+            background: linear-gradient(to bottom, var(--sky-top) 0%, var(--sky-bottom) 40%, var(--grass-light) 80%, var(--grass-dark) 100%);
             color: var(--text-dark);
             line-height: 1.6;
-            padding: 40px 15px;
+            padding: 30px 15px;
             margin: 0;
             min-height: 100vh;
+            /* Thêm họa tiết nền mây và hoa trôi nổi */
+            background-image: 
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Ctext x='10' y='30' font-size='20'%3E☁️%3C/text%3E%3Ctext x='60' y='70' font-size='20'%3E🌸%3C/text%3E%3C/svg%3E");
+            background-attachment: fixed;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 850px;
             margin: 0 auto;
-            background-color: #FFFFFF;
+            background-color: #FFFBEE; /* Nền kem sáng */
             padding: 40px;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-soft);
+            border-radius: 30px;
+            /* Viền giả gỗ */
+            border: 5px solid var(--soil-brown);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2), inset 0 0 20px rgba(141, 110, 99, 0.1);
             position: relative;
-            overflow: hidden;
-            border-top: 5px solid var(--sunflower-yellow);
+            overflow: visible;
+        }
+
+        /* Trang trí góc container bằng dây leo và nấm */
+        .container::before {
+            content: '🍄🌿';
+            position: absolute;
+            bottom: -20px;
+            left: -15px;
+            font-size: 3em;
+            transform: rotate(-15deg);
+            z-index: 1;
+        }
+        .container::after {
+            content: '🌻🐝';
+            position: absolute;
+            top: -25px;
+            right: -15px;
+            font-size: 3em;
+            transform: rotate(15deg);
+            z-index: 1;
         }
 
         h1 {
             text-align: center;
             font-family: var(--font-heading);
-            color: var(--leaf-deep);
+            color: var(--text-brown);
             font-weight: 800;
-            font-size: 2.2em;
+            font-size: 3em;
             margin-bottom: 35px;
-            position: relative;
+            text-shadow: 2px 2px 0px var(--flower-yellow);
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 15px;
         }
-        
-        h1::before { content: '🌻'; font-size: 1.2em; }
-        h1::after { content: '🌷'; font-size: 1.2em; }
+        h1::before { content: '🌈'; }
+        h1::after { content: '🌷'; }
 
+        /* Thẻ thông tin học sinh - Bảng gỗ */
         .student-info-card {
-            background-color: #F0FDF4; 
+            background-color: #EFEBE9;
             padding: 25px;
-            border-radius: var(--radius-md);
+            border-radius: 20px;
             margin-bottom: 40px;
-            border: 1px solid #BBF7D0;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+            border: 3px dashed var(--soil-brown);
+            box-shadow: 5px 5px 0px rgba(93, 64, 55, 0.1);
         }
 
         .student-info-card h3 {
             margin-top: 0;
             font-family: var(--font-heading);
-            color: var(--leaf-deep);
-            font-size: 1.3em;
+            color: var(--text-brown);
+            font-size: 1.8em;
             margin-bottom: 20px;
             display: flex;
             align-items: center;
         }
-        .student-info-card h3::before { content: '🌱'; margin-right: 10px; }
+        .student-info-card h3::before { content: '🏡 '; margin-right: 10px; }
 
         .input-group label {
             display: block;
-            font-weight: 700;
+            font-weight: 800;
             margin-bottom: 8px;
-            color: var(--leaf-deep);
+            color: var(--text-brown);
+            font-family: var(--font-heading);
+            font-size: 1.2em;
         }
 
         .input-group input {
             width: 100%;
-            padding: 12px 16px;
-            border: 2px solid #E5E7EB;
-            border-radius: 12px;
-            font-size: 1.05em;
+            padding: 14px 16px;
+            border: 3px solid var(--grass-light);
+            border-radius: 15px;
+            font-size: 1.1em;
             font-family: var(--font-body);
             box-sizing: border-box;
             outline: none;
             background: #FFFFFF;
             transition: all 0.3s ease;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
         }
 
         .input-group input:focus {
-            border-color: var(--leaf-sage);
-            box-shadow: 0 0 0 4px rgba(132, 204, 22, 0.15);
+            border-color: var(--grass-dark);
+            background-color: #F1F8E9;
         }
 
+        /* Thẻ câu hỏi - Luống hoa */
         .question-card {
             background: #FFFFFF;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
             padding: 30px;
-            border-radius: var(--radius-md);
-            border: 1px solid #F3F4F6;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: var(--radius-organic);
+            border: 3px solid #C5E1A5;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            position: relative;
         }
         
-        .question-card:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-soft);
-            border-color: var(--sunflower-yellow);
+        /* Họa tiết lá chìm */
+        .question-card::after {
+            content: '🍃';
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 2em;
+            opacity: 0.2;
+            transform: rotate(45deg);
         }
 
         .question-title {
             font-family: var(--font-heading);
-            font-weight: 700;
-            font-size: 1.2em;
+            font-weight: 800;
+            font-size: 1.5em;
             margin-bottom: 20px;
-            color: var(--leaf-deep);
+            color: var(--text-brown);
+            display: flex;
+            gap: 10px;
         }
+        .question-title::before { content: '🌱'; }
 
         .poem-text {
-            font-family: var(--font-body);
-            font-size: 1.1em;
+            font-family: var(--font-heading);
+            font-size: 1.3em;
             font-style: italic;
-            background-color: #FFFBEB; 
+            background-color: #F9FBE7; /* Nền vàng chanh nhạt */
             padding: 20px;
-            border-radius: var(--radius-md);
-            border-left: 4px solid var(--sunflower-yellow);
-            margin: 15px 0;
-            color: #78350F;
+            border-radius: 20px;
+            border: 2px dotted var(--grass-dark);
+            margin: 20px 0;
+            color: #558B2F;
+            position: relative;
         }
 
         .image-placeholder {
             width: 100%;
-            border-radius: var(--radius-md);
+            border-radius: 20px;
             overflow: hidden;
             margin-bottom: 20px;
             text-align: center;
-            background-color: #F9FAFB;
-            padding: 10px;
-            border: 1px solid #E5E7EB;
+            background-color: #F1F8E9;
+            padding: 12px;
+            border: 3px solid #DCEDC8;
+            box-sizing: border-box;
         }
         
         .image-placeholder img {
             max-width: 100%;
             height: auto;
             display: block;
-            border-radius: 8px;
+            border-radius: 12px;
             margin: 0 auto;
         }
 
+        /* Danh sách đáp án - Hình chiếc lá */
         .options-list {
             list-style-type: none;
             padding: 0;
             display: grid;
-            gap: 12px;
+            gap: 15px;
         }
 
         .option-label {
             display: flex;
             align-items: center;
-            padding: 14px 20px;
-            background-color: #FFFFFF;
-            border: 2px solid #E5E7EB;
-            border-radius: 12px;
+            padding: 16px 22px;
+            background-color: #F1F8E9;
+            border: 2px solid var(--grass-light);
+            /* Bo góc hình chiếc lá */
+            border-radius: 15px 40px 15px 40px;
             cursor: pointer;
             transition: all 0.2s ease;
-            font-weight: 600;
+            font-weight: 700;
             color: var(--text-dark);
+            position: relative;
         }
 
         .option-label:hover {
-            background-color: #FFF7ED; 
-            border-color: var(--sunflower-yellow);
-            transform: translateX(5px);
+            background-color: #DCEDC8;
+            transform: scale(1.02) rotate(-1deg);
+            border-color: var(--grass-dark);
         }
         
-        input[type="radio"]:checked + span {
-             color: var(--tulip-red);
+        /* Hiệu ứng chọn: Nở hoa */
+        input[type="radio"]:checked + span::before {
+             content: '🌺 ';
         }
         
         .option-label:has(input[type="radio"]:checked) {
-            background-color: #FDF2F8; 
-            border-color: var(--tulip-pink);
+            background-color: #F8BBD0; /* Hồng phấn */
+            border-color: var(--flower-pink);
+            color: #880E4F;
         }
 
         input[type="radio"] {
             margin-right: 15px;
-            transform: scale(1.3);
-            accent-color: var(--tulip-pink);
+            transform: scale(1.5);
+            accent-color: var(--flower-pink);
             cursor: pointer;
         }
 
+        /* Sắp xếp chữ - Khu vườn nhỏ */
         .arrange-container {
-            margin-top: 20px;
-            background: #F9FAFB;
+            margin-top: 25px;
+            background: #FFF8E1; /* Nền đất vàng nhạt */
             padding: 25px;
-            border-radius: var(--radius-md);
-            border: 1px solid #E5E7EB;
+            border-radius: 25px;
+            border: 3px dotted var(--flower-orange);
+            position: relative;
         }
         
         .arrange-label {
             font-family: var(--font-heading);
-            font-weight: 700;
-            color: var(--leaf-deep);
+            font-weight: 800;
+            color: var(--text-brown);
             margin-bottom: 12px;
             display: block;
-            font-size: 0.95em;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            font-size: 1.2em;
         }
 
         .letters-pool, .answer-box {
             display: flex;
             flex-wrap: wrap;
             gap: 12px;
-            padding: 16px;
-            min-height: 65px;
-            border-radius: 12px;
-            margin-bottom: 20px;
+            padding: 18px;
+            min-height: 70px;
+            border-radius: 20px;
+            margin-bottom: 25px;
             align-items: center;
         }
 
         .letters-pool {
-            background-color: #FFFFFF;
-            border: 2px dashed var(--leaf-sage);
+            background-color: #FFECB3; /* Túi hạt giống màu vàng cam */
+            border: 2px dashed var(--flower-orange);
         }
+        .letters-pool::before { content: '🌰 Túi hạt giống'; position: absolute; top: -12px; right: 20px; background: #FFF; padding: 2px 8px; border-radius: 10px; font-size: 0.9em; border: 1px solid var(--flower-orange);}
+
 
         .answer-box {
-            background-color: #FFFFFF;
-            border: 2px solid var(--sunflower-orange);
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+            background-color: #D7CCC8; /* Màu đất */
+            border: 3px solid var(--soil-brown);
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.1);
         }
+        .answer-box::before { content: '🪴 Chậu cây'; position: absolute; top: -12px; right: 20px; background: #FFF; padding: 2px 8px; border-radius: 10px; font-size: 0.9em; border: 1px solid var(--soil-brown);}
+
 
         .letter-tile {
             display: inline-flex;
             justify-content: center;
             align-items: center;
-            width: 50px;
-            height: 50px;
-            background: #FFFFFF;
-            color: var(--leaf-deep);
-            font-size: 1.5em;
+            width: 55px;
+            height: 55px;
+            /* Hình mầm cây tròn */
+            background: linear-gradient(135deg, #AED581, #7CB342);
+            color: #FFF;
+            font-size: 1.6em;
             font-family: var(--font-heading);
-            font-weight: 700;
-            border: 2px solid var(--leaf-sage);
-            border-radius: 10px;
+            font-weight: 800;
+            border: 3px solid #558B2F;
+            border-radius: 50%;
             cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 0px #33691E;
             user-select: none;
             transition: all 0.2s;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
         }
 
         .letter-tile:hover {
             transform: translateY(-3px);
-            border-color: var(--sunflower-yellow);
-            color: var(--sunflower-orange);
         }
 
         .letter-tile:active {
-            transform: scale(0.95);
+            transform: translateY(2px);
+            box-shadow: 0 1px 0px #33691E;
         }
 
         .correct-text-msg {
-            color: var(--leaf-deep);
-            font-weight: 700;
+            color: var(--grass-dark);
+            font-weight: 800;
             margin-top: 15px;
             display: none;
             font-size: 1.1em;
+            text-align: center;
         }
-        .correct-text-msg::before { content: '🌷 Đáp án đúng: '; color: var(--tulip-pink); }
+        .correct-text-msg::before { content: '🎉 Cây đã nở hoa: 🌸 '; }
 
+        /* Highlight Đúng/Sai - Rực rỡ hơn */
         .correct-answer {
-            background-color: #DCFCE7 !important; 
-            border-color: #22C55E !important;
-            color: #15803D !important;
+            background-color: #C8E6C9 !important;
+            border-color: #2E7D32 !important;
+            color: #1B5E20 !important;
+            box-shadow: 0 0 15px #C8E6C9;
         }
         
         .wrong-answer {
-            background-color: #FEE2E2 !important; 
-            border-color: #EF4444 !important;
-            color: #B91C1C !important;
+            background-color: #FFCDD2 !important; 
+            border-color: #C62828 !important;
+            color: #B71C1C !important;
         }
 
+        /* Nút chức năng - Bông hoa khổng lồ */
         .btn {
             display: block;
             width: 100%;
-            padding: 16px;
-            font-size: 1.2em;
+            padding: 20px;
+            font-size: 1.5em;
             font-family: var(--font-heading);
-            font-weight: 700;
+            font-weight: 800;
             color: white;
             border: none;
-            border-radius: 50px;
+            border-radius: 60px;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-top: 40px;
+            margin-top: 45px;
             text-align: center;
             text-transform: uppercase;
             letter-spacing: 1px;
-            box-shadow: var(--shadow-soft);
+            position: relative;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
 
         .submit-btn {
-            background: linear-gradient(135deg, var(--sunflower-yellow), var(--sunflower-orange));
+            /* Hoa hướng dương */
+            background: linear-gradient(to bottom, var(--flower-yellow), var(--flower-orange));
+            box-shadow: 0 8px 0px #E65100, 0 15px 20px rgba(230, 81, 0, 0.4);
+            color: #5D4037;
         }
 
         .submit-btn:hover {
-            box-shadow: var(--shadow-hover);
-            transform: translateY(-2px);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 0px #E65100, 0 20px 30px rgba(230, 81, 0, 0.5);
         }
+        .submit-btn:active { transform: translateY(4px); box-shadow: 0 2px 0px #E65100; }
 
         .reset-btn {
-            background: linear-gradient(135deg, var(--tulip-pink), var(--tulip-red));
+            /* Hoa xanh dương/Tưới nước */
+            background: linear-gradient(to bottom, var(--flower-blue), #0288D1);
+            box-shadow: 0 8px 0px #01579B, 0 15px 20px rgba(1, 87, 155, 0.4);
             display: none; 
         }
 
         .reset-btn:hover {
-            box-shadow: var(--shadow-hover);
-            transform: translateY(-2px);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 0px #01579B, 0 20px 30px rgba(1, 87, 155, 0.5);
         }
+        .reset-btn:active { transform: translateY(4px); box-shadow: 0 2px 0px #01579B; }
         
         .loading {
             opacity: 0.8;
             pointer-events: none;
-            background: #9CA3AF !important;
+            background: #B0BEC5 !important;
+            box-shadow: none !important;
+            color: #546E7A !important;
         }
 
+        /* Khung kết quả - Bảng vinh danh vườn hoa */
         #result-box {
             display: none;
-            margin-top: 50px;
-            padding: 35px;
-            background-color: #FFFFFF;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-hover);
-            border-top: 5px solid var(--tulip-pink);
+            margin-top: 60px;
+            padding: 40px;
+            background-color: #FFF9C4; /* Vàng kem */
+            border-radius: 30px;
+            border: 5px solid var(--flower-yellow);
             text-align: center;
+            box-shadow: 0 10px 30px rgba(255, 235, 59, 0.3);
+            position: relative;
+        }
+        #result-box::before {
+            content: '👑';
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 4em;
+            z-index: 2;
         }
 
         #result-box h2 {
-            margin-top: 0;
+            margin-top: 20px;
             font-family: var(--font-heading);
-            color: var(--tulip-red);
-            font-size: 2em;
-            font-weight: 800;
-            margin-bottom: 25px;
-        }
-
-        .result-stats-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 25px;
-            text-align: left;
+            color: #F57F17;
+            font-size: 2.5em;
+            font-weight: 900;
+            margin-bottom: 30px;
         }
 
         .result-stat {
-            font-size: 1.1em;
-            padding: 15px;
-            background: #F9FAFB;
-            border-radius: 12px;
-            font-weight: 600;
-            color: var(--text-dark);
-            border: 1px solid #E5E7EB;
+            font-size: 1.3em;
+            padding: 15px 25px;
+            background: #FFFFFF;
+            border-radius: 20px;
+            font-weight: 700;
+            color: var(--text-brown);
+            border: 3px solid var(--grass-light);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
         
-        .result-stat span {
-            display: block;
-            font-size: 0.9em;
-            color: var(--text-muted);
-            font-weight: 500;
-            margin-bottom: 5px;
-        }
+        .result-stat span:first-child { font-size: 1.5em; margin-right: 15px; }
         
         .score-highlight {
-            color: var(--tulip-pink);
-            font-weight: 800;
-            font-size: 1.3em;
+            color: var(--flower-pink);
+            font-weight: 900;
+            font-size: 1.4em;
         }
 
         @media (max-width: 600px) {
-            body { padding: 20px 10px; }
-            .container { padding: 25px 20px; }
-            h1 { font-size: 1.8em; flex-direction: column; gap: 10px; }
-            h1::before, h1::after { display: none; } 
-            .btn { font-size: 1.1em; padding: 14px; }
-            .result-stats-container { grid-template-columns: 1fr; }
+            body { padding: 15px 10px; }
+            .container { padding: 30px 20px; border-width: 3px; }
+            h1 { font-size: 2em; flex-direction: column; gap: 5px; }
+            .btn { font-size: 1.2em; padding: 15px; }
+            .letter-tile { width: 45px; height: 45px; font-size: 1.3em; }
+            .result-stat { flex-direction: column; gap: 10px; text-align: center; }
+            .result-stat span:first-child { margin-right: 0; }
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>Ôn Tập Kiến Thức</h1>
+    <h1>Khu Vườn Tri Thức Lớp 1</h1>
 
     <div class="student-info-card">
-        <h3>Thông tin học sinh</h3>
+        <h3>Thông tin Bác làm vườn nhí</h3>
         <div class="input-group">
             <label for="studentName">Họ và tên của em:</label>
             <input type="text" id="studentName" placeholder="Nhập họ và tên..." required>
@@ -429,14 +492,14 @@
 
     <div id="quiz-container"></div>
     
-    <button id="submitBtn" class="btn submit-btn" onclick="submitQuiz()">Nộp Bài & Chấm Điểm</button>
-    <button id="resetBtn" class="btn reset-btn" onclick="resetQuiz()">Làm Lại Bài (Đảo Câu Hỏi)</button>
+    <button id="submitBtn" class="btn submit-btn" onclick="submitQuiz()">🌻 Nộp Bài & Thu Hoạch 🌻</button>
+    <button id="resetBtn" class="btn reset-btn" onclick="resetQuiz()">💦 Tưới Nước & Làm Lại 💦</button>
     
     <div id="result-box"></div>
 </div>
 
 <script>
-    // ✅ URL Gửi điểm trực tiếp về Google Sheets của bạn
+    // ✅ URL Gửi điểm trực tiếp về Google Sheets của bạn (ĐÃ ĐƯỢC GIỮ NGUYÊN)
     const scriptURL = 'https://script.google.com/macros/s/AKfycbxRA-yjp6i3c1FkUygNdWfGifXgLOV6UAPp3fB4MjjTZCvKLakwUcSJTrrrCWDpSgcD/exec'; 
 
     const quizData = [
@@ -686,7 +749,7 @@
             } else if (q.type === "arrange") {
                 htmlContent += `
                     <div class="arrange-container" id="arrange-container-${index}">
-                        <span class="arrange-label">Khay chữ cái:</span>
+                        <span class="arrange-label">👇 Túi hạt giống chữ cái:</span>
                         <div class="letters-pool" id="pool-q${index}">
                 `;
                 let shuffledLetters = [...q.letters];
@@ -697,9 +760,9 @@
                 });
                 htmlContent += `
                         </div>
-                        <span class="arrange-label">Ô đáp án:</span>
+                        <span class="arrange-label">🌱 Mảnh đất gieo trồng:</span>
                         <div class="answer-box" id="answer-q${index}"></div>
-                        <div class="correct-text-msg" id="msg-q${index}">Đáp án đúng: ${q.displayAnswer}</div>
+                        <div class="correct-text-msg" id="msg-q${index}">${q.displayAnswer}</div>
                     </div>
                 `;
             }
@@ -728,7 +791,7 @@
         }
 
         const btn = document.getElementById('submitBtn');
-        btn.innerText = "Đang xử lý dữ liệu...";
+        btn.innerText = "⏳ Đang chấm bài và gửi điểm...";
         btn.classList.add('loading');
 
         let score = 0;
@@ -758,11 +821,11 @@
                 
                 if (userWord.toLowerCase() === q.correctAnswer.toLowerCase()) {
                     score++;
-                    answerBox.style.backgroundColor = '#DCFCE7';
-                    answerBox.style.borderColor = '#22C55E';
+                    answerBox.style.backgroundColor = '#C8E6C9';
+                    answerBox.style.borderColor = '#2E7D32';
                 } else {
-                    answerBox.style.backgroundColor = '#FEE2E2';
-                    answerBox.style.borderColor = '#EF4444';
+                    answerBox.style.backgroundColor = '#FFCDD2';
+                    answerBox.style.borderColor = '#C62828';
                     document.getElementById(`msg-q${index}`).style.display = 'block';
                 }
             }
@@ -798,30 +861,16 @@
         
         resultBox.innerHTML = `
             <h2>${feedbackIcon}</h2>
-            <div class="result-stats-container">
-                <div class="result-stat">
-                    <span>Họ và tên</span>
-                    ${studentName}
-                </div>
-                <div class="result-stat">
-                    <span>Lớp</span>
-                    ${studentClass}
-                </div>
-                <div class="result-stat">
-                    <span>Kết quả</span>
-                    <span class="score-highlight">${score} / ${quizData.length} câu</span>
-                </div>
-                <div class="result-stat">
-                    <span>Số lần nộp</span>
-                    ${attempts} lần
-                </div>
-            </div>
-            <p style="text-align: center; margin-top: 20px; font-size: 0.95em; color: var(--text-muted);">
+            <div class="result-stat"><span class="stat-icon">👤</span> <span><strong>Họ và tên:</strong> ${studentName}</span></div>
+            <div class="result-stat"><span class="stat-icon">🏫</span> <span><strong>Lớp:</strong> ${studentClass}</span></div>
+            <div class="result-stat"><span class="stat-icon">🎯</span> <span><strong>Kết quả:</strong> <span class="score-highlight">${score} / ${quizData.length} câu</span></span></div>
+            <div class="result-stat"><span class="stat-icon">🔄</span> <span><strong>Số lần nộp:</strong> ${attempts} lần</span></div>
+            <p style="text-align: center; margin-top: 25px; font-size: 1.1em; color: var(--text-brown); font-family: var(--font-heading);">
                 (Các câu làm sai đã được đánh dấu màu đỏ và hiện đáp án đúng màu xanh rồi đó!)
             </p>
         `;
         
-        btn.innerText = "Nộp Bài & Chấm Điểm";
+        btn.innerText = "🌻 Nộp Bài & Thu Hoạch 🌻";
         btn.classList.remove('loading');
         document.getElementById('submitBtn').style.display = 'none';
         document.getElementById('resetBtn').style.display = 'block';
