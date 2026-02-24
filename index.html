@@ -610,7 +610,8 @@
         formData.append("attempts", attempts);
 
         if (scriptURL !== 'https://script.google.com/macros/s/AKfycbxRA-yjp6i3c1FkUygNdWfGifXgLOV6UAPp3fB4MjjTZCvKLakwUcSJTrrrCWDpSgcD/exec') {
-            fetch(scriptURL, { method: 'POST', body: formData })
+            // Đã thêm mode: 'no-cors' để không bị trình duyệt chặn
+            fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' })
                 .then(response => {
                     console.log('Đã gửi điểm thành công lên Google Sheets!');
                 })
