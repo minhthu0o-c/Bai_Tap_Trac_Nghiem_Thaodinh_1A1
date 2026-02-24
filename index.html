@@ -7,11 +7,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Bảng màu Bầu trời & Vườn hoa */
-            --sky-top: #4FC3F7; /* Xanh da trời sáng */
-            --sky-bottom: #81D4FA;
-            --grass-light: #AED581; /* Xanh lá mạ */
-            --grass-dark: #7CB342; /* Xanh cỏ đậm */
+            /* Bảng màu MỚI: Đồng Lúa Vàng Ombre */
+            --rice-field-top: #FFFACD;   /* Vàng chanh nhạt (Lemon Chiffon) */
+            --rice-field-mid: #FFD700;   /* Vàng kim (Gold) - Lúa chín */
+            --rice-field-bottom: #DAA520; /* Vàng nghệ đậm (Golden Rod) - Đất */
+            
             --soil-brown: #8D6E63; /* Màu đất/gỗ */
             
             --flower-yellow: #FFEB3B;
@@ -26,22 +26,33 @@
             --font-body: 'Nunito', sans-serif;
 
             --radius-organic: 20px 30px 20px 30px; /* Bo góc kiểu tự nhiên */
-            --shadow-pop: 0 8px 0px rgba(0,0,0,0.15);
         }
 
         body {
             font-family: var(--font-body);
-            /* Nền gradient từ bầu trời xuống thảm cỏ */
-            background: linear-gradient(to bottom, var(--sky-top) 0%, var(--sky-bottom) 40%, var(--grass-light) 80%, var(--grass-dark) 100%);
+            /* Nền gradient ombre đồng lúa vàng */
+            background: linear-gradient(to bottom, var(--rice-field-top) 0%, var(--rice-field-mid) 50%, var(--rice-field-bottom) 100%);
             color: var(--text-dark);
             line-height: 1.6;
             padding: 30px 15px;
             margin: 0;
             min-height: 100vh;
-            /* Thêm họa tiết nền mây và hoa trôi nổi */
-            background-image: 
-                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Ctext x='10' y='30' font-size='20'%3E☁️%3C/text%3E%3Ctext x='60' y='70' font-size='20'%3E🌸%3C/text%3E%3C/svg%3E");
-            background-attachment: fixed;
+            /* Loại bỏ background-image cũ */
+        }
+        
+        /* Thêm hiệu ứng nền cây lúa mờ với độ đục giảm */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('image_5.png'); /* Sử dụng hình ảnh cây lúa từ user input */
+            background-repeat: repeat;
+            background-size: auto;
+            opacity: 0.2; /* Giảm độ đục để làm nền */
+            z-index: -1; /* Đặt phía sau nội dung chính */
         }
 
         .container {
@@ -55,6 +66,7 @@
             box-shadow: 0 15px 30px rgba(0,0,0,0.2), inset 0 0 20px rgba(141, 110, 99, 0.1);
             position: relative;
             overflow: visible;
+            z-index: 1; /* Đảm bảo container nằm trên nền mờ */
         }
 
         /* Trang trí góc container bằng dây leo và nấm */
@@ -90,7 +102,7 @@
             justify-content: center;
             gap: 15px;
         }
-        h1::before { content: '🌈'; }
+        h1::before { content: '🌾'; }
         h1::after { content: '🌷'; }
 
         /* Thẻ thông tin học sinh - Bảng gỗ */
@@ -126,7 +138,7 @@
         .input-group input {
             width: 100%;
             padding: 14px 16px;
-            border: 3px solid var(--grass-light);
+            border: 3px solid var(--rice-field-mid);
             border-radius: 15px;
             font-size: 1.1em;
             font-family: var(--font-body);
@@ -138,8 +150,8 @@
         }
 
         .input-group input:focus {
-            border-color: var(--grass-dark);
-            background-color: #F1F8E9;
+            border-color: var(--flower-orange);
+            background-color: #FFFDE7;
         }
 
         /* Thẻ câu hỏi - Luống hoa */
@@ -182,7 +194,7 @@
             background-color: #F9FBE7; /* Nền vàng chanh nhạt */
             padding: 20px;
             border-radius: 20px;
-            border: 2px dotted var(--grass-dark);
+            border: 2px dotted var(--text-dark);
             margin: 20px 0;
             color: #558B2F;
             position: relative;
@@ -221,7 +233,7 @@
             align-items: center;
             padding: 16px 22px;
             background-color: #F1F8E9;
-            border: 2px solid var(--grass-light);
+            border: 2px solid #C5E1A5;
             /* Bo góc hình chiếc lá */
             border-radius: 15px 40px 15px 40px;
             cursor: pointer;
@@ -234,7 +246,7 @@
         .option-label:hover {
             background-color: #DCEDC8;
             transform: scale(1.02) rotate(-1deg);
-            border-color: var(--grass-dark);
+            border-color: var(--text-dark);
         }
         
         /* Hiệu ứng chọn: Nở hoa */
@@ -331,7 +343,7 @@
         }
 
         .correct-text-msg {
-            color: var(--grass-dark);
+            color: var(--text-dark);
             font-weight: 800;
             margin-top: 15px;
             display: none;
@@ -447,7 +459,7 @@
             border-radius: 20px;
             font-weight: 700;
             color: var(--text-brown);
-            border: 3px solid var(--grass-light);
+            border: 3px solid #C5E1A5;
             margin-bottom: 15px;
             display: flex;
             align-items: center;
